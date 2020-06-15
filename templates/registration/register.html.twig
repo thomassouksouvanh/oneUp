@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription One Up{% endblock %}
+
+{% block body %}
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6">
+                {{ form_start(registrationForm) }}
+                <form class="text-center px-md-5 mx-md-5 text-center text-lg-left dark-grey-text">
+
+                    <p class="h4 mb-4">Inscription One UP Program</p>
+                    <div class="error_message text-center"></div>
+                    {{ form_row(registrationForm.firstname, {'attr': {'class': 'formMain'}}) }}
+                    {{ form_row(registrationForm.lastname, {'attr': {'class': 'formMain'}}) }}
+                    <div class="error_message_match text-center"></div>
+                    {{ form_row(registrationForm.email, {'attr': {'class': 'formMain'}}) }}
+                    {{ form_row(registrationForm.plainPassword.first, {'attr': {'class': 'formMain'}}) }}
+                    <div class=".error_message_password-constraint"></div>
+                    {{ form_row(registrationForm.plainPassword.second, {'attr': {'class': 'formMain'}}) }}
+                    <button class="btn btn-block" type="submit">S'enregistrer</button>
+                    <div class="text-left mt-3 mr-3">
+                        <p>En soumettant ce formulaire, j'accepte que les informations saisies soient exploitées dans
+                            le cadre de la demande de Biorad.
+                        </p>
+                        {{ form_row(registrationForm.agreeTerms) }}
+
+                    {{ form_end(registrationForm) }}
+                </form>
+            </div>
+        </div>
+{% endblock %}
