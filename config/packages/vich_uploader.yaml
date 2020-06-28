@@ -1,0 +1,21 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/StofDoctrineExtensionsBundle/index.html
+# See the official DoctrineExtensions documentation for more details: https://github.com/Atlantic18/DoctrineExtensions/tree/master/doc/
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        avatar_image:
+            uri_prefix: /images/avatar
+            upload_destination: '%kernel.project_dir%/assets/uploads/images/avatar'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            #options: { property: 'slug'}
+
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/products
+    #        upload_destination: '%kernel.project_dir%/public/images/products'
+
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/products
+    #        upload_destination: '%kernel.project_dir%/public/images/products'

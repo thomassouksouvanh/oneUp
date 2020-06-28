@@ -3,9 +3,17 @@
 {% block title %}Homepage One Up{% endblock %}
 
 {% block body %}
+    {% include 'partial/header.html.twig'%}
     <div class="row">
         <div class="col col-sm col-md-6 col-lg-6 col-xl-6">
-            <div class="text">dgfdfdffd</div>
+            <div class="text h5">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas feugiat consequat diam.
+                Maecenas metus. Vivamus diam purus, cursus a, commodo non, facilisis vitae, nulla.
+                Aenean dictum lacinia tortor. Nunc iaculis, nibh non iaculis aliquam, orci felis euismod neque,
+                sed ornare massa mauris sed velit. Nulla pretium mi et risus. Fusce mi pede, tempor id, cursus ac,
+                ullamcorper nec, enim. Sed tortor. Curabitur molestie. Duis velit augue, condimentum at, ultrices a,
+                luctus ut, orci. Donec pellentesque egestas eros. Integer cursus, augue in cursus faucibus, eros pede
+                bibendum sem, in tempus tellus justo quis ligula. Etiam eget tortor. Vestibulum rutrum, est ut placerat
+            </div>
         </div>
         <div class="col col-sm col-md-6 col-lg-6 col-xl-6">
            <div class="oneUp">
@@ -13,4 +21,41 @@
            </div>
         </div>
     </div>
+
+    <div class="row mt-3">
+    {% for proposition in propositions %}
+            <div class="col-sm-6 col-md-6 col-lg-3 col-xl-4">
+                <div class="card indexCard {{ cycle(['odd','even'], loop.index0) }} mt-3">
+                    <div class="card-body">
+                        <p>
+                            <small class="text-muted float-right">{{ proposition.createdAt |  date ('d/m/Y') }}</small>
+                        </p>
+                        <h5 class="card-title">{{ proposition.name }}</h5>
+                        <p class="mt-3">
+                            <button class="btn read" type="button" data-toggle="collapse" data-target="#collapseExample-{{ proposition.id}}"  aria-expanded="false" aria-controls="collapseExample">
+                                Description
+                            </button>
+                            <button class="btn look">
+                                <a href="{{ path('proposition_show',{'slug':proposition.slug}) }}" >Voir la fiche</a>
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExample-{{ proposition.id }}">
+                            <div class="card card-body">
+                                {{ proposition.description | raw }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted mt-3">
+                        <p class="card-text">status</p>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+    </div>
+
+
+    <div class="row align-items-center justify-content-center mt-4">
+        {{ knp_pagination_render(propositions) }}
+    </div>
+
 {% endblock %}

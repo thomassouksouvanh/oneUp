@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.poste) }}
+    {{ form_row(form.category) }}
+    {{ form_row(form.description) }}
+    <button class="btn login">{{ button_label|default('Soumettre') }}</button>
+{{ form_end(form) }}

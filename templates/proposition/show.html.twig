@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Proposition{% endblock %}
+
+{% block body %}
+
+
+    <!-- Card -->
+    <div class="card promoting-card">
+        <div class="card-header text-center">
+        <h1>{{ proposition.name }}</h1>
+            <p class="card-text float-right"> {{ proposition.createdAt ? proposition.createdAt|date('d/m/y H:i:s') : '' }}</p>
+        </div>
+        <!-- Card content -->
+        <div class="card-body d-flex flex-row">
+            <!-- Avatar -->
+            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg" class="rounded-circle mr-3" height="100px" width="100px" alt="avatar">
+            <!-- Content -->
+            <div>
+                <!-- Title -->
+                <h4 class="card-title font-weight-bold mb-2">{{ proposition.author.fullname }}</h4>
+
+                <!-- Subtitle -->
+
+            </div>
+        </div>
+        <!-- Card image -->
+        <hr>
+        <!-- Card content -->
+        <div class="card-body">
+            <div class="card-text">
+                <!--<img class="card-img-top rounded-0" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full page/2.jpg" alt="Card image cap"> -->
+                {{ proposition.description|raw }}
+            </div>
+            <hr>
+            <div class="collapse-content">
+
+                <!-- Text -->
+                <p class="card-text collapse" id="collapseContent">Documents si il y a </p>
+                <!-- Button -->
+                <a class="btn btn-flat red-text p-1 my-1 mr-0 mml-1 collapsed" data-toggle="collapse"
+                   href="#collapseContent" aria-expanded="false" aria-controls="collapseContent">
+                    Document
+                </a>
+                    {% if app.user and app.user is same as (proposition.author) %}
+                        <a class="btn edit" href="{{ path('proposition_edit', {'slug': proposition.slug}) }}">Modifier</a>
+                {% else %}
+
+                {% endif %}
+                {#<i class="fas fa-heart text-muted float-right p-1 my-1 mr-3" data-toggle="tooltip" data-placement="top" title="I like it">Status admin</i>#}
+                <a href="{{path('like_user',{'id':proposition.id})}}" class="js-like float-right p-1 my-1 mr-3">
+                    {% if app.user %}
+                        {% if app.user  == proposition.isLikeUser(app.user) %}
+                            <i class="fas fa-thumbs-up like"></i>
+                        {% else %}
+                            <i class="far fa-thumbs-up like"></i>
+                        {% endif %}
+                    {% endif %}
+                    <span class="js-likes">{{proposition.postlikes | length }}</span>
+                    <span class="js-label">j'aime</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <!-- Card -->
+
+
+
+{#    <a href="{{ path('proposition_index') }}">in</a>#}
+    <div class="row block-comment">
+        <div class="col">
+            <h3 class="mt-3">Commentaire:</h3>
+        <hr class="hr">
+            {% for comment in comments %}
+                <div class="media-list mt-4">
+                    <div class="media">
+                        <div class="col-md-2 col-lg-2">
+                            <small class="text-muted">{{ comment.createdAt | date('d/m/Y') }}</small>
+                           {%  if comment.author.avatar == null %}
+                                <a href="{{ path('user_show',{'slug':comment.author.slug}) }}">
+                                    <img src="{{ asset('/build/uploads/logo/logo-aidetonvoisin-inversé.png') |
+                                    imagine_filter('thumb') }} " style="width: 100px;" alt="defaultAvatar"/>
+                                </a>
+                            {% else  %}
+                                <a>
+                                <a href="{{ path('account_user',{'slug':comment.author.slug}) }}">#}
+                                    <img src="{{ asset('/build/uploads/images/avatar/'~comment.author.avatar) |
+                                    imagine_filter('thumb') }}" style="width: 100px;" alt="{{ user.avatar }}" class="commentAvatar">
+                                </a>
+                            {%  endif %}
+                            <div class="text-muted mt-3">{{ comment.author.fullname}}</div>
+                        </div>
+                        <div class="col-md-10 col-lg-10">
+                            <p class="float-right mr-2">
+                                {% for i in 1..5 %}
+                                    {% if i <= comment.rating %}
+                                        <i class="fas fa-star"></i>
+                                    {% else %}
+                                        <i class="far fa-star"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                            <div class="media-body">
+                                <p class="mt-3">
+                                    {{ comment.content|raw }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="hr">
+            {% endfor %}
+        </div>
+    </div>
+
+    {{ form_start(form) }}
+        {{ form_row(form.rating) }}
+            <div class="error-message-rating text-center mb-2"></div>
+                <div class="error-message-content text-center mb-2"></div>
+            {{ form_row(form.content) }}
+        <button class="btn subRating">Donner mon avis</button>
+    {{ form_end(form) }}
+
+
+
+{% endblock %}

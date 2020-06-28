@@ -4,28 +4,28 @@
 
 {% block body %}
         <div class="row d-flex justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-6 mt-3">
+                <img src="{{ asset('/build/uploads/logo.png') }}" class="logo mx-auto d-block mb-3" alt="logo biorad">
                 {{ form_start(registrationForm) }}
-                <form class="text-center px-md-5 mx-md-5 text-center text-lg-left dark-grey-text">
-
-                    <p class="h4 mb-4">Inscription One UP Program</p>
+                <form class="subscriber text-center px-md-5 mx-md-5 text-center" >
+                    <h4 class="text-center mb-4">Inscription One UP Program</h4>
                     <div class="error_message text-center"></div>
                     {{ form_row(registrationForm.firstname, {'attr': {'class': 'formMain'}}) }}
                     {{ form_row(registrationForm.lastname, {'attr': {'class': 'formMain'}}) }}
                     <div class="error_message_match text-center"></div>
                     {{ form_row(registrationForm.email, {'attr': {'class': 'formMain'}}) }}
-                    {{ form_row(registrationForm.plainPassword.first, {'attr': {'class': 'formMain'}}) }}
-                    <div class=".error_message_password-constraint"></div>
-                    {{ form_row(registrationForm.plainPassword.second, {'attr': {'class': 'formMain'}}) }}
-                    <button class="btn btn-block" type="submit">S'enregistrer</button>
+                    {{ form_row(registrationForm.plainPassword.first, {'attr': {'class': 'formMain','autocomplete' :'on'}}) }}
+                    <div class="error_message_password_constraint"></div>
+                    {{ form_row(registrationForm.plainPassword.second, {'attr': {'class': 'formMain','autocomplete' :'on'}}) }}
+                    <div class="passwordCheck text-center mt-1 mb-3"></div>
+                    <button class="btn btn-block" type="submit" id="enregistrer">S'enregistrer</button>
                     <div class="text-left mt-3 mr-3">
                         <p>En soumettant ce formulaire, j'accepte que les informations saisies soient exploitées dans
                             le cadre de la demande de Biorad.
                         </p>
                         {{ form_row(registrationForm.agreeTerms) }}
-
-                    {{ form_end(registrationForm) }}
                 </form>
+                {{ form_end(registrationForm) }}
             </div>
         </div>
 {% endblock %}

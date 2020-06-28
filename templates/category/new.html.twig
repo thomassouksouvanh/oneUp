@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Category{% endblock %}
+{% block title %}Creation ligne de prod{% endblock %}
 
 {% block body %}
-    <h1>Create new Category</h1>
+    {% include 'partial/header.html.twig'%}
+    <div class="categoryForm w-50  mt-5">
+        <p class="h3 mb-4 text-center">Nouvelle ligne de prod</p>
+            {{ include('category/_form.html.twig') }}
+        <a class="" href="{{ path('category_index') }}">Retour à la liste</a>
+    </div>
 
-    {{ include('category/_form.html.twig') }}
 
-    <a href="{{ path('category_index') }}">back to list</a>
+
 {% endblock %}

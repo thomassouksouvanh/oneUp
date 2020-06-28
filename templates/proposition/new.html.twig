@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle proposition{% endblock %}
+
+{% block body %}
+    {% include('partial/header2.html.twig') %}
+    <h4 class="text-center">Soumettre une proposition</h4>
+
+    {{ include('proposition/_form.html.twig') }}
+
+    {#<a href="{{ path('proposition_index') }}">back to list</a>#}
+{% endblock %}

@@ -1,4 +1,7 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<form class="text-center" >
+    {{ form_widget(form, {'attr': {'class': 'productLine','autocomplete' :'on'}}) }}
+    <div class="error_message"></div>
+    <button class="btn save mb-3">{{ button_label|default('Enregistrer') }}</button>
+</form>
 {{ form_end(form) }}

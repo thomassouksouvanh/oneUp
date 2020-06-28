@@ -1,35 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category index{% endblock %}
+{% block title %}Ligne de production index{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
+    {% include 'partial/header.html.twig'%}
+    <h3>Index ligne de production</h3>
 
-    <table class="table">
-        <thead>
+    <table class="table table-hover table-bordered">
+        <thead class="thead bg-success">
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
+                <th>Nom</th>
+                <th>Actions</th>
             </tr>
+
         </thead>
         <tbody>
         {% for category in categories %}
             <tr>
-                <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
                 <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+                    <a href="{{ path('category_show', {'slug': category.slug}) }}"><i class="far fa-eye mr-3  float-right"></i></a>
+
+                    <a href="{{ path('category_edit', {'slug': category.slug}) }}"><i class="far fa-edit  ml-2 mr-3 float-right"></i></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">Aucune ligne enregistrer</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('category_new') }}">Create new</a>
+    <button class="btn create" type="button"><a  href="{{ path('category_new') }}">Création d'une nouvelle ligne de prodcution</a></button>
 {% endblock %}

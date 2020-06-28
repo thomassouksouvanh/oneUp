@@ -3,48 +3,56 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-    <div id="login">
-        <h3 class="text-center text-white mt-0">Connexion</h3>
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="" method="post">
-                            {% if error %}
-                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                            {% endif %}
-
-                            {% if app.user %}
-                                <div class="mb-3">
-                                    Vous êtes déja connecté sous {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnnexion</a>
-                                </div>
-                            {% endif %}
-                            <img src="{{ asset('/build/uploads/logo.png') }}" class="logo mx-auto d-block mb-3" alt="logo biorad">
-                            <div class="form-group">
-                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
-                                       class="form-control mt-4" placeholder="Email" required autofocus>
-                                <div class="error_message_mail text-center"></div>
-                                <input type="password" name="password" id="inputPassword" class="form-control mt-4"
-                                       placeholder="Mot de passe" required autofocus autocomplete="on">
-                                <div class="error_message_password text-center"></div>
-                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                            </div>
-                                {# Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                                    See https://symfony.com/doc/current/security/remember_me.html
-
-                                    <div class="checkbox mb-3">
-                                        <label>
-                                            <input type="checkbox" name="_remember_me"> Remember me
-                                        </label>
-                                    </div>#}
-                                <button type="submit" name="submit" class="btn login" >se connecter</button>
-                            </div>
-                            <div id="register-link" class="text-right">
-                                <a href="{{ path('app_register') }}" class="text mr-5">Inscription</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+    <div class="row py-5">
+        <div class="card loginCard w-75">
+            <div class="card-header mb-3">
+                <img src="{{ asset('/build/uploads/logo.png') }}" class="logo mx-auto d-block py-3" alt="logo biorad">
             </div>
+
+            <div class="card-body">
+                <form class="text-center" method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    <div class="md-form mb-4">
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
+                               class="form-control mt-4" placeholder="Email" required autofocus>
+                        <div class="error_message_mail text-center"></div>
+                    </div>
+
+                    <div class="md-form mb-4">
+                        <input type="password" name="password" id="inputPassword" class="form-control mt-4"
+                               placeholder="Mot de passe" required autofocus autocomplete="on">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        <div class="error_message_password text-center"></div>
+                        <div class="error_message_password_constraint"></div>
+                    </div>
+
+                    <div class="row d-flex justify-content-around">
+                        <div class="form-check mb-3">
+                            <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                        </div>
+                        <div class="mb-3">
+                            <a href="{{ path('app_forgotten_password') }}">Mot de passe oublié?</a>
+                        </div>
+                    </div>
+
+                    <button type="submit" name="submit" class="btn login btn-block mt-2" >se connecter</button>
+                    {% if app.user %}
+                        <div class="mb-3">
+                            Vous êtes déja connecté sous {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnnexion</a>
+                        </div>
+                    {% else %}
+                        <div class="row mt-4">
+                            <div class="col">
+                                <a href="{{ path('app_register') }}"> Inscription</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

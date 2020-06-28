@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Proposition index{% endblock %}
+
+{% block body %}
+    <h1>Proposition index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Soumis par :</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>CreatedAt</th>
+                <th>Poste</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for proposition in propositions %}
+            <tr>
+                <td>{{ proposition.author.fullname }}</td>
+                <td>{{ proposition.name }}</td>
+                <td>{{ proposition.description | raw }}</td>
+                <td>{{ proposition.createdAt ? proposition.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ proposition.poste }}</td>
+                <td>
+                    <a href="{{ path('proposition_show', {'slug': proposition.slug}) }}">show</a>
+                    <a href="{{ path('proposition_edit', {'slug': proposition.slug}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('proposition_new') }}">Create new</a>
+
+{% endblock %}
